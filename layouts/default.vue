@@ -14,6 +14,6 @@ import Header from '../components/Header.vue';
    max-width: 1173px;
    margin: 0 auto;
    padding: 0 20px;
-   margin-bottom: 100px;
+   margin-bottom: 50px;
 }
 </style>

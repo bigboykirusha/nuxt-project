@@ -73,6 +73,7 @@ export default {
          margin: 0 auto;
          align-self: center;
          margin-right: 20px;
+         margin-left: 0;
 
          @media (max-width: 480px) {
             width: 50px;

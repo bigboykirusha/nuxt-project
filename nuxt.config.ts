@@ -1,9 +1,5 @@
 export default defineNuxtConfig({
   modules: ['nuxt-swiper'],
-  swiper: {
-    modules: ['navigation', 'pagination', 'autoplay'],
-    styleLang: 'css'
-  },
   app: {
     head: {
       link: [

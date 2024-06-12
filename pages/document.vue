@@ -1,0 +1,101 @@
+<template>
+   <section class="document">
+      <div class="document__navbar">
+         Главная страница
+         <div class="dot"></div>
+         Документы
+         <div class="dot"></div>
+         <span>{{ decodedTitle }}</span>
+      </div>
+      <h2 class="document__name">{{ decodedTitle }}</h2>
+      <h3 class="document__title">Заголовок 1</h3>
+      <p class="document__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+         deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+         officia deserunt mollit anim id est laborum.</p>
+      <h3 class="document__title">Заголовок 2</h3>
+      <p class="document__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+         deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+         officia deserunt mollit anim id est laborum.</p>
+   </section>
+</template>
+
+<script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const decodedTitle = decodeURIComponent(route.query.title || '')
+</script>
+
+<style lang="scss" scoped>
+.document {
+   &__navbar {
+      font-size: 13px;
+      line-height: 120%;
+      color: #000;
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+
+      @media (max-width: 768px) {
+         font-size: 12px;
+         margin-bottom: 25px;
+      }
+
+      span {
+         color: #8F8F8F;
+      }
+   }
+
+   &__name {
+      font-size: 41px;
+      line-height: 120%;
+      color: #000;
+      margin-bottom: 40px;
+
+      @media (max-width: 768px) {
+         font-size: 28px;
+         margin-bottom: 25px;
+      }
+   }
+
+   &__title {
+      color: #383838;
+      font-size: 41px;
+      line-height: 120%;
+      margin-bottom: 25px;
+
+      @media (max-width: 768px) {
+         font-size: 28px;
+         margin-bottom: 15px;
+      }
+   }
+
+   &__desc {
+      font-size: 18px;
+      line-height: 120%;
+      color: #000;
+      margin-bottom: 25px;
+   }
+}
+
+
+.dot {
+   width: 5px;
+   height: 5px;
+   background-color: #000;
+   border-radius: 50%;
+   margin: 0 10px;
+}
+</style>

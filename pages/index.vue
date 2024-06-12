@@ -15,6 +15,6 @@ import AdvantagesList from '@/components/AdvantagesList.vue';
 
 <style scoped lang="scss">
 h1 {
-  color: #333;
+  color: black;
 }
 </style>

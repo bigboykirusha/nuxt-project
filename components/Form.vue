@@ -36,7 +36,10 @@
          </p>
       </div>
       <div class="form-image">
-         <img src="../assets/images/computer.png" alt="Photo" />
+         <picture>
+            <source srcset="../assets/images/computer.webp" type="image/webp">
+            <img src="../assets/images/computer.png" alt="Photo" />
+         </picture>
       </div>
       <div v-if="showAlert" class="alert">Данные отправлены!</div>
       <Modal :videoUrl="'https://www.youtube.com/embed/dQw4w9WgXcQ'" :visible="isModalVisible"

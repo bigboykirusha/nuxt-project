@@ -14,12 +14,12 @@
          }" :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }" :autoplay="{
             delay: 10000,
             disableOnInteraction: false
-         }" navigation loop :space-between="35" centeredSlides: true>
+         }" loop :space-between="35" centeredSlides: true>
          <SwiperSlide v-for="slide in slides" :key="slide.id">
             <div class="slide-content">
                <h2>{{ slide.title }}</h2>
                <p>{{ slide.description }}</p>
-               <button>Перейти</button>
+               <button @click="navigateToDocument(slide.title)">Перейти</button>
             </div>
          </SwiperSlide>
       </Swiper>
@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+
 const slides = [
    { id: 1, title: 'Информация об оплате', description: 'Десятипозиционный переключатель дозировки расположен на ручке тележки и позволяет очень точно регулировать объем рассыпаемого реагента с учетом его массы и фракции.' },
    { id: 2, title: 'Политика обработки персональных данных', description: 'Радиус разброса ПГМ составляет до 3 метров и может регулироваться.' },
@@ -41,10 +42,19 @@ const slides = [
    { id: 6, title: 'Конфиденциальность данных', description: 'Политика, регламентирующая сбор, использование и защиту персональных данных пользователей.' }
 ];
 
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const navigateToDocument = (title) => {
+   router.push({
+      path: '/document',
+      query: { title: encodeURIComponent(title) }
+   })
+}
 </script>
 
 <style lang="scss" scoped>
-
 .slider__title {
    color: #000;
    font-size: 34px;
@@ -117,7 +127,7 @@ const slides = [
 .nav__container {
    position: absolute;
    top: 0;
-   z-index: 1000000;
+   z-index: 100;
    display: flex;
    width: 100%;
    top: calc(50% - 40px);

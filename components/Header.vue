@@ -2,7 +2,7 @@
    <header class="header">
       <nav>
          <div class="header__info">
-            <img src="../assets/images/logo.png" alt="Logo" @click="redirectToHomePage(); closeMenu()">
+            <img src="../assets/images/logo.svg" alt="Logo" @click="redirectToHomePage(); closeMenu()">
             <ul class="header__menu">
                <li><a @click="redirectToTariffs()">Тарифы</a></li>
                <li><a @click="redirectToContacts()">Контакты</a></li>
@@ -26,8 +26,8 @@
             <a class="fullscreenMenu__link" @click="redirectToTariffs(); closeMenu()">Тарифы</a>
             <a class="fullscreenMenu__link" @click="redirectToContacts(); closeMenu()">Контакты</a>
             <a href="#" class="fullscreenMenu__link" @click="closeMenu">Вход</a>
-            <a href="tel:+74951184422" class="fullscreenMenu__link">+7 495 118-44-22</a>
             <button class="header__reg" @click="closeMenu">Регистрация</button>
+            <a href="tel:+74951184422" class="fullscreenMenu__link">+7 495 118-44-22</a>
          </div>
       </div>
    </header>
@@ -227,7 +227,7 @@ export default {
 
 .fullscreenMenu {
    position: fixed;
-   z-index: 1000;
+   z-index: 1005;
    top: 0;
    left: 0;
    width: 100%;
