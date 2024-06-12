@@ -1,8 +1,8 @@
 <template>
-   <div v-if="visible" class="modal-overlay" @click.self="closeModal">
+   <div v-if="visible" class="modal-overlay" @click.self="closeModal" @keydown.esc="closeModal">
       <div class="modal-content">
          <button class="close-button" @click="closeModal">&times;</button>
-         <iframe :class="{ 'desktop-size': isDesktop, 'mobile-size': !isDesktop }" :src="videoUrl"
+         <iframe :class="{ 'modal-content--desktop': isDesktop, 'modal-content--mobile': !isDesktop }" :src="videoUrl"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal-overlay {
    position: fixed;
    top: 0;
@@ -67,12 +67,12 @@ export default {
    margin-left: auto;
 }
 
-.desktop-size {
+.modal-content--desktop {
    width: 800px;
    height: 450px;
 }
 
-.mobile-size {
+.modal-content--mobile {
    width: 370px;
    height: 210px;
 }

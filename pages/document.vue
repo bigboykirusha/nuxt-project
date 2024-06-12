@@ -39,11 +39,15 @@ const decodedTitle = decodeURIComponent(route.query.title || '')
 </script>
 
 <style lang="scss" scoped>
+$document-font-size: 18px;
+$document-line-height: 120%;
+$document-color: #000;
+
 .document {
    &__navbar {
       font-size: 13px;
       line-height: 120%;
-      color: #000;
+      color: $document-color;
       display: flex;
       align-items: center;
       margin: 20px 0;
@@ -61,7 +65,7 @@ const decodedTitle = decodeURIComponent(route.query.title || '')
    &__name {
       font-size: 41px;
       line-height: 120%;
-      color: #000;
+      color: $document-color;
       margin-bottom: 40px;
 
       @media (max-width: 768px) {
@@ -83,18 +87,17 @@ const decodedTitle = decodeURIComponent(route.query.title || '')
    }
 
    &__desc {
-      font-size: 18px;
-      line-height: 120%;
-      color: #000;
+      font-size: $document-font-size;
+      line-height: $document-line-height;
+      color: $document-color;
       margin-bottom: 25px;
    }
 }
 
-
 .dot {
    width: 5px;
    height: 5px;
-   background-color: #000;
+   background-color: $document-color;
    border-radius: 50%;
    margin: 0 10px;
 }

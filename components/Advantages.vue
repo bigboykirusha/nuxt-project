@@ -3,7 +3,7 @@
       <h2>Плюсы использования сервиса «Компас» для анализа штрафов</h2>
       <div class="cards-container">
          <div v-for="(advantage, index) in advantages" :key="index" class="card">
-            <img :src="advantage.image" alt="Card Image" class="card-image">
+            <img :src="advantage.image" :alt="advantage.title" class="card-image">
             <div class="card-content">
                <h3 class="card-title">{{ advantage.title }}</h3>
                <p class="card-description">{{ advantage.description }}</p>
@@ -13,11 +13,11 @@
    </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
    props: {
       advantages: {
-         type: Array,
+         type: Array as () => Array<{ image: string, title: string, description: string }>,
          required: true
       }
    }
@@ -29,8 +29,8 @@ export default {
    margin-bottom: 85px;
 
    @media (max-width: 768px) {
-         margin-bottom: 100px;
-      }
+      margin-bottom: 100px;
+   }
 
    h2 {
       font-size: 34px;

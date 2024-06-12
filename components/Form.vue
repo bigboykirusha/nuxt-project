@@ -47,54 +47,48 @@
    </div>
 </template>
 
-<script>
-import Modal from './Modal.vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 
-export default {
-   components: {
-      Modal
-   },
-   data() {
-      return {
-         carNumber: '',
-         region: '',
-         registrationCertificate: '',
-         errors: {},
-         showAlert: false,
-         isModalVisible: false
-      };
-   },
-   methods: {
-      submitForm() {
-         this.errors = {
-            carNumber: !this.carNumber,
-            region: !this.region,
-            registrationCertificate: !this.registrationCertificate
-         };
+const carNumber = ref('');
+const region = ref('');
+const registrationCertificate = ref('');
+const errors = ref({});
+const showAlert = ref(false);
+const isModalVisible = ref(false);
 
-         if (this.errors.carNumber || this.errors.region || this.errors.registrationCertificate) {
-            return;
-         }
+function submitForm() {
+   errors.value = {
+      carNumber: !carNumber.value,
+      region: !region.value,
+      registrationCertificate: !registrationCertificate.value
+   };
 
-         this.showAlert = true;
-         this.clearForm();
-         setTimeout(() => (this.showAlert = false), 3000);
-      },
-      showServiceInfo() {
-         this.isModalVisible = true;
-      },
-      clearError(field) {
-         this.errors[field] = false;
-      },
-      clearForm() {
-         this.carNumber = '';
-         this.region = '';
-         this.registrationCertificate = '';
-         this.errors = {};
-      }
+   if (errors.value.carNumber || errors.value.region || errors.value.registrationCertificate) {
+      return;
    }
-};
+
+   showAlert.value = true;
+   clearForm();
+   setTimeout(() => (showAlert.value = false), 3000);
+}
+
+function showServiceInfo() {
+   isModalVisible.value = true;
+}
+
+function clearError(field: string) {
+   errors.value[field] = false;
+}
+
+function clearForm() {
+   carNumber.value = '';
+   region.value = '';
+   registrationCertificate.value = '';
+   errors.value = {};
+}
 </script>
+
 
 <style lang="scss" scoped>
 .form-container {
@@ -296,7 +290,7 @@ form {
    background-color: #0584fe;
    color: #fff;
    padding: 10px 20px;
-   border-radius: 5px;
+   border-radius: 25px;
    z-index: 1000;
 }
 </style>
