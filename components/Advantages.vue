@@ -89,7 +89,7 @@ export default {
             font-size: 18px;
             font-weight: bold;
             color: #1253a2;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
 
             @media (max-width: 480px) {
                font-size: 15px;
