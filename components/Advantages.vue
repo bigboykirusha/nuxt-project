@@ -35,7 +35,7 @@ export default {
    h2 {
       font-size: 34px;
       font-weight: bold;
-      margin-bottom: 35px;
+      margin-bottom: 40px;
       text-align: center;
       color: #000;
 
@@ -47,9 +47,11 @@ export default {
    .cards-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      align-items: stretch;
       gap: 35px;
       justify-content: center;
+
+      @media (max-width: 768px) {
+      }
    }
 
    .card {
@@ -70,7 +72,7 @@ export default {
       .card-image {
          width: 60px;
          height: 60px;
-         margin: 0 auto;
+         margin: 20px auto;
          align-self: center;
          margin-right: 20px;
          margin-left: 0;
@@ -88,6 +90,10 @@ export default {
             font-weight: bold;
             color: #1253a2;
             margin-bottom: 5px;
+
+            @media (max-width: 480px) {
+               font-size: 15px;
+            }
          }
 
          .card-description {
@@ -95,7 +101,7 @@ export default {
             color: #333;
 
             @media (max-width: 480px) {
-               font-size: 14px;
+               font-size: 12px;
             }
          }
       }

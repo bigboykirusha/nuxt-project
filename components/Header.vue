@@ -20,10 +20,10 @@
                   <a href="tel:+74951184422" class="header__number">+7 495 118-44-22</a>
                </li>
                <li>
-                  <a href="#" class="header__auth-link">Вход</a>
+                  <NuxtLink to="/login" class="header__auth-link">Вход</NuxtLink>
                </li>
             </ul>
-            <button class="header__reg" @click="closeMenu">Регистрация</button>
+            <NuxtLink class="header__reg" to="/reg">Регистрация</NuxtLink>
          </div>
          <div :class="{ 'burgerMenu': true, 'active': isMenuActive }" @click="toggleMenu">
             <div class="burgerBar bar1"></div>
@@ -35,8 +35,8 @@
          <div class="fullscreenMenu__content">
             <NuxtLink to="/tariffs" class="fullscreenMenu__link" @click="closeMenu">Тарифы</NuxtLink>
             <NuxtLink to="/contacts" class="fullscreenMenu__link" @click="closeMenu">Контакты</NuxtLink>
-            <a href="#" class="fullscreenMenu__link" @click="closeMenu">Вход</a>
-            <button class="header__reg" @click="closeMenu">Регистрация</button>
+            <NuxtLink to="/login" class="fullscreenMenu__link" @click="closeMenu">Вход</NuxtLink>
+            <NuxtLink class="header__reg" @click="closeMenu" to="/reg">Регистрация</NuxtLink>
             <a href="tel:+74951184422" class="fullscreenMenu__link">+7 495 118-44-22</a>
          </div>
       </div>

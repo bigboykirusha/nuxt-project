@@ -50,18 +50,34 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const carNumber = ref('');
-const region = ref('');
-const registrationCertificate = ref('');
-const errors = ref({});
-const showAlert = ref(false);
-const isModalVisible = ref(false);
+const carNumber = ref<string>('');
+const region = ref<string>('');
+const registrationCertificate = ref<string>('');
+const errors = ref<{ [key: string]: boolean }>({});
+const showAlert = ref<boolean>(false);
+const isModalVisible = ref<boolean>(false);
+
+interface FormValues {
+   carNumber: string;
+   region: string;
+   registrationCertificate: string;
+}
+
+const formValues = ref<FormValues>({
+   carNumber: '',
+   region: '',
+   registrationCertificate: ''
+});
 
 function submitForm() {
+   const isCarNumberValid = carNumber.value.trim() !== '';
+   const isRegionValid = region.value.trim() !== '';
+   const isRegistrationCertificateValid = registrationCertificate.value.trim() !== '';
+
    errors.value = {
-      carNumber: !carNumber.value,
-      region: !region.value,
-      registrationCertificate: !registrationCertificate.value
+      carNumber: !isCarNumberValid,
+      region: !isRegionValid,
+      registrationCertificate: !isRegistrationCertificateValid
    };
 
    if (errors.value.carNumber || errors.value.region || errors.value.registrationCertificate) {

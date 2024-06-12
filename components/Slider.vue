@@ -93,7 +93,7 @@ const navigateToDocument = (title) => {
          color: #1253A2;
          font-size: 31px;
          line-height: 120%;
-         margin-bottom: 10px;
+         margin-bottom: 15px;
 
          @media (max-width: 991px) {
             font-size: 24px;
@@ -104,6 +104,10 @@ const navigateToDocument = (title) => {
          color: #000;
          font-size: 18px;
          line-height: 120%;
+
+         @media (max-width: 991px) {
+            font-size: 17px;
+         }
       }
 
       button {
@@ -130,6 +134,7 @@ const navigateToDocument = (title) => {
       display: flex;
       width: 100%;
       justify-content: space-between;
+      pointer-events: none;
 
       .custom-prev,
       .custom-next {
@@ -142,6 +147,7 @@ const navigateToDocument = (title) => {
          height: 80px;
          width: 80px;
          cursor: pointer;
+         pointer-events: all;
          transition: background-color 0.3s ease-in;
 
          &:hover {

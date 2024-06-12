@@ -1,9 +1,11 @@
 <template>
    <section class="document">
       <div class="document__navbar">
-         Главная страница
+         <NuxtLink class="link" to="/">
+            Главная страница
+         </NuxtLink>
          <div class="dot"></div>
-         Документы
+         <span class="link">Документы</span>
          <div class="dot"></div>
          <span>{{ decodedTitle }}</span>
       </div>
@@ -33,7 +35,6 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-
 const route = useRoute()
 const decodedTitle = decodeURIComponent(route.query.title || '')
 </script>
@@ -51,6 +52,14 @@ $document-color: #000;
       display: flex;
       align-items: center;
       margin: 20px 0;
+
+      .link {
+         color: #000;
+
+         &:hover {
+            text-decoration: underline;
+         }
+      }
 
       @media (max-width: 768px) {
          font-size: 12px;
