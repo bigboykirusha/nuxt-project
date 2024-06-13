@@ -2,7 +2,7 @@
    <h2 class="slider__title">Документы</h2>
    <div class="slider__container">
       <Swiper :modules="[SwiperNavigation, SwiperPagination, SwiperAutoplay]"
-         :pagination="{ type: 'bullets', el: '.pagination', clickable: 'true' }" :breakpoints="{
+         :pagination="{ type: 'bullets', el: '.pagination', clickable: true }" :breakpoints="{
             621: {
                slidesPerView: 2,
                slidesPerGroup: 2
@@ -14,7 +14,7 @@
          }" :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }" :autoplay="{
             delay: 10000,
             disableOnInteraction: false
-         }" loop :space-between="35" centeredSlides: true>
+         }" loop :space-between="35">
          <SwiperSlide v-for="slide in slides" :key="slide.id">
             <div class="slide-content">
                <h2>{{ slide.title }}</h2>
@@ -31,7 +31,7 @@
    </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 
 const slides = [
    { id: 1, title: 'Информация об оплате', description: 'Десятипозиционный переключатель дозировки расположен на ручке тележки и позволяет очень точно регулировать объем рассыпаемого реагента с учетом его массы и фракции.' },
@@ -46,12 +46,13 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const navigateToDocument = (title) => {
+const navigateToDocument = (title: string): void => {
    router.push({
       path: '/document',
       query: { title: encodeURIComponent(title) }
-   })
-}
+   });
+};
+
 </script>
 
 <style lang="scss" scoped>

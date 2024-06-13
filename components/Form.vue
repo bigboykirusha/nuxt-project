@@ -2,30 +2,31 @@
    <div class="form-container">
       <div class="form-content">
          <h2>Проверьте штрафы и<br />зарегистрируйтесь в 1 клик</h2>
-         <form @submit.prevent="submitForm">
+         <form @submit.prevent="submitForm" ref="form">
             <div class="input-group-inline">
                <div class="input-group">
                   <label for="carNumber">Номер автомобиля</label>
-                  <input id="carNumber" type="text" v-model="carNumber" :class="{ 'error': errors.carNumber }"
-                     @focus="clearError('carNumber')" />
+                  <input id="carNumber" type="text" v-model="formValues.carNumber"
+                     :class="{ 'error': errors.carNumber && formSubmitted }" @focus="clearError('carNumber')" />
                </div>
                <div class="input-group">
                   <label for="region">Регион</label>
-                  <input id="region" type="text" v-model="region" :class="{ 'error': errors.region }"
-                     @focus="clearError('region')" />
+                  <input id="region" type="text" v-model="formValues.region"
+                     :class="{ 'error': errors.region && formSubmitted }" @focus="clearError('region')" />
                </div>
             </div>
             <div class="input-group">
-               <label for="registrationCertificate">Свидетельство регистрации TC</label>
-               <input id="registrationCertificate" type="text" v-model="registrationCertificate"
-                  :class="{ 'error': errors.registrationCertificate }" @focus="clearError('registrationCertificate')" />
+               <label for="registrationCertificate">Свидетельство регистрации ТС</label>
+               <input id="registrationCertificate" type="text" v-model="formValues.registrationCertificate"
+                  :class="{ 'error': errors.registrationCertificate && formSubmitted }"
+                  @focus="clearError('registrationCertificate')" />
             </div>
             <div class="button-group">
                <button type="submit">
-                  Проверить штрафы <img src="../assets/images/arrow.svg" alt="" />
+                  Проверить штрафы <img src="@/assets/images/arrow.svg" alt="" />
                </button>
                <button type="button" class="info-button" @click="showServiceInfo">
-                  <img src="../assets/images/yt.svg" alt="" />
+                  <img src="@/assets/images/yt.svg" alt="" />
                   О сервисе <span>(1 мин. 20 сек)</span>
                </button>
             </div>
@@ -37,8 +38,8 @@
       </div>
       <div class="form-image">
          <picture>
-            <source srcset="../assets/images/computer.webp" type="image/webp">
-            <img src="../assets/images/computer.png" alt="Photo" />
+            <source srcset="@/assets/images/computer.webp" type="image/webp">
+            <img src="@/assets/images/computer.png" alt="Photo" />
          </picture>
       </div>
       <div v-if="showAlert" class="alert">Данные отправлены!</div>
@@ -48,14 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
-const carNumber = ref<string>('');
-const region = ref<string>('');
-const registrationCertificate = ref<string>('');
-const errors = ref<{ [key: string]: boolean }>({});
-const showAlert = ref<boolean>(false);
-const isModalVisible = ref<boolean>(false);
+import { reactive } from 'vue';
 
 interface FormValues {
    carNumber: string;
@@ -63,30 +57,38 @@ interface FormValues {
    registrationCertificate: string;
 }
 
-const formValues = ref<FormValues>({
+const formValues = reactive<FormValues>({
    carNumber: '',
    region: '',
    registrationCertificate: ''
 });
 
+const errors = reactive<{ [key: string]: boolean }>({});
+const showAlert = ref<boolean>(false);
+const isModalVisible = ref<boolean>(false);
+const formSubmitted = ref<boolean>(false);
+
+function validateForm() {
+   const isCarNumberValid = formValues.carNumber.trim() !== '';
+   const isRegionValid = formValues.region.trim() !== '';
+   const isRegistrationCertificateValid = formValues.registrationCertificate.trim() !== '';
+
+   errors.carNumber = !isCarNumberValid;
+   errors.region = !isRegionValid;
+   errors.registrationCertificate = !isRegistrationCertificateValid;
+
+   return isCarNumberValid && isRegionValid && isRegistrationCertificateValid;
+}
+
 function submitForm() {
-   const isCarNumberValid = carNumber.value.trim() !== '';
-   const isRegionValid = region.value.trim() !== '';
-   const isRegistrationCertificateValid = registrationCertificate.value.trim() !== '';
+   formSubmitted.value = true;
 
-   errors.value = {
-      carNumber: !isCarNumberValid,
-      region: !isRegionValid,
-      registrationCertificate: !isRegistrationCertificateValid
-   };
-
-   if (errors.value.carNumber || errors.value.region || errors.value.registrationCertificate) {
+   if (!validateForm()) {
       return;
    }
 
    showAlert.value = true;
    clearForm();
-   setTimeout(() => (showAlert.value = false), 3000);
 }
 
 function showServiceInfo() {
@@ -94,17 +96,21 @@ function showServiceInfo() {
 }
 
 function clearError(field: string) {
-   errors.value[field] = false;
+   if (errors.hasOwnProperty(field)) {
+      errors[field] = false;
+   }
 }
 
 function clearForm() {
-   carNumber.value = '';
-   region.value = '';
-   registrationCertificate.value = '';
-   errors.value = {};
+   formValues.carNumber = '';
+   formValues.region = '';
+   formValues.registrationCertificate = '';
+   Object.keys(errors).forEach(field => {
+      errors[field] = false;
+   });
+   formSubmitted.value = false;
 }
 </script>
-
 
 <style lang="scss" scoped>
 .form-container {

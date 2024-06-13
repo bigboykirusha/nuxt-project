@@ -1,5 +1,6 @@
 <template>
-   <div v-if="visible" class="modal-overlay" @click.self="closeModal" @keydown.esc="closeModal">
+   <div v-if="visible" class="modal-overlay" role="dialog" aria-modal="true" @click.self="closeModal"
+      @keydown.esc="closeModal">
       <div class="modal-content">
          <button class="close-button" @click="closeModal">&times;</button>
          <iframe :class="{ 'modal-content--desktop': isDesktop, 'modal-content--mobile': !isDesktop }" :src="videoUrl"
