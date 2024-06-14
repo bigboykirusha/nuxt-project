@@ -1,9 +1,8 @@
 <template>
-   <div v-if="visible" class="modal-overlay" role="dialog" aria-modal="true" @click.self="closeModal"
-      @keydown.esc="closeModal">
+   <div v-if="props.visible" class="modal-overlay" role="dialog" aria-modal="true" @click.self="closeModal">
       <div class="modal-content">
          <button class="close-button" @click="closeModal">&times;</button>
-         <iframe :class="{ 'modal-content--desktop': isDesktop, 'modal-content--mobile': !isDesktop }" :src="videoUrl"
+         <iframe :class="{ 'modal-content--desktop': isDesktop, 'modal-content--mobile': !isDesktop }" :src="props.videoUrl"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
@@ -11,29 +10,35 @@
    </div>
 </template>
 
-<script>
-export default {
-   props: {
-      videoUrl: {
-         type: String,
-         required: true
-      },
-      visible: {
-         type: Boolean,
-         required: true
-      }
-   },
-   computed: {
-      isDesktop() {
-         return window.innerWidth > 768;
-      }
-   },
-   methods: {
-      closeModal() {
-         this.$emit('close');
-      }
+<script setup lang="ts">
+import { computed, defineEmits, onMounted, onUnmounted } from 'vue';
+
+const props = defineProps<{
+   videoUrl: string;
+   visible: boolean;
+}>();
+
+const emit = defineEmits(['close']);
+
+const isDesktop = computed(() => window.innerWidth > 768);
+
+const handleEsc = (event: KeyboardEvent) => {
+   if (event.key === 'Escape') {
+      closeModal();
    }
 };
+
+const closeModal = () => {
+   emit('close');
+};
+
+onMounted(() => {
+   window.addEventListener('keydown', handleEsc);
+});
+
+onUnmounted(() => {
+   window.removeEventListener('keydown', handleEsc);
+});
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
    <div class="advantages-container">
       <h2>Плюсы использования сервиса «Компас» для анализа штрафов</h2>
       <div class="cards-container">
-         <AdvantageCard v-for="(advantage, index) in advantages" :key="index" :advantage="advantage" />
+         <AdvantageCard v-for="(advantage, index) in ADVANTAGES" :key="index" :advantage="advantage" />
       </div>
    </div>
 </template>
@@ -23,7 +23,7 @@ interface Advantage {
    description: string;
 }
 
-const advantages = ref<Advantage[]>([
+const ADVANTAGES = ref<Advantage[]>([
    {
       image: adv1,
       title: 'Неограниченый автопарк',

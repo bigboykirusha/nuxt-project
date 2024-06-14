@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <Form />
-    <AdvantagesList />
-    <Slider />
-  </div>
+  <Form />
+  <AdvantagesList />
+  <Slider />
 </template>
 
-<style scoped lang="scss">
-div {
+<style>
+* {
   box-sizing: border-box;
 }
 </style>

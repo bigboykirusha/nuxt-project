@@ -6,18 +6,18 @@
             <div class="input-group-inline">
                <div class="input-group">
                   <label for="carNumber">Номер автомобиля</label>
-                  <input id="carNumber" type="text" v-model="formValues.carNumber"
+                  <input id="carNumber" type="text" v-model.trim="formValues.carNumber"
                      :class="{ 'error': errors.carNumber && formSubmitted }" @focus="clearError('carNumber')" />
                </div>
                <div class="input-group">
                   <label for="region">Регион</label>
-                  <input id="region" type="text" v-model="formValues.region"
+                  <input id="region" type="text" v-model.trim="formValues.region"
                      :class="{ 'error': errors.region && formSubmitted }" @focus="clearError('region')" />
                </div>
             </div>
             <div class="input-group">
                <label for="registrationCertificate">Свидетельство регистрации ТС</label>
-               <input id="registrationCertificate" type="text" v-model="formValues.registrationCertificate"
+               <input id="registrationCertificate" type="text" v-model.trim="formValues.registrationCertificate"
                   :class="{ 'error': errors.registrationCertificate && formSubmitted }"
                   @focus="clearError('registrationCertificate')" />
             </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 interface FormValues {
    carNumber: string;
@@ -64,20 +64,16 @@ const formValues = reactive<FormValues>({
 });
 
 const errors = reactive<{ [key: string]: boolean }>({});
-const showAlert = ref<boolean>(false);
-const isModalVisible = ref<boolean>(false);
-const formSubmitted = ref<boolean>(false);
+const showAlert = ref(false);
+const isModalVisible = ref(false);
+const formSubmitted = ref(false);
 
 function validateForm() {
-   const isCarNumberValid = formValues.carNumber.trim() !== '';
-   const isRegionValid = formValues.region.trim() !== '';
-   const isRegistrationCertificateValid = formValues.registrationCertificate.trim() !== '';
+   errors.carNumber = !formValues.carNumber;
+   errors.region = !formValues.region;
+   errors.registrationCertificate = !formValues.registrationCertificate;
 
-   errors.carNumber = !isCarNumberValid;
-   errors.region = !isRegionValid;
-   errors.registrationCertificate = !isRegistrationCertificateValid;
-
-   return isCarNumberValid && isRegionValid && isRegistrationCertificateValid;
+   return !errors.carNumber && !errors.region && !errors.registrationCertificate;
 }
 
 function submitForm() {
@@ -88,6 +84,11 @@ function submitForm() {
    }
 
    showAlert.value = true;
+
+   setTimeout(() => {
+      showAlert.value = false;
+   }, 2000);
+
    clearForm();
 }
 
@@ -95,18 +96,15 @@ function showServiceInfo() {
    isModalVisible.value = true;
 }
 
-function clearError(field: string) {
-   if (errors.hasOwnProperty(field)) {
+function clearError(field: keyof FormValues) {
+   if (errors[field]) {
       errors[field] = false;
    }
 }
 
 function clearForm() {
-   formValues.carNumber = '';
-   formValues.region = '';
-   formValues.registrationCertificate = '';
-   Object.keys(errors).forEach(field => {
-      errors[field] = false;
+   Object.keys(formValues).forEach(key => {
+      formValues[key as keyof FormValues] = '';
    });
    formSubmitted.value = false;
 }

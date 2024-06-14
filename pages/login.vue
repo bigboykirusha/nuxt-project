@@ -4,6 +4,6 @@
 
 <style scoped lang="scss">
 h1 {
-   color: black;
+   color: rgb(42, 184, 61);
 }
 </style>

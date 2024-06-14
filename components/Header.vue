@@ -36,60 +36,31 @@
             <NuxtLink to="/tariffs" class="fullscreenMenu__link" @click="closeMenu">Тарифы</NuxtLink>
             <NuxtLink to="/contacts" class="fullscreenMenu__link" @click="closeMenu">Контакты</NuxtLink>
             <NuxtLink to="/login" class="fullscreenMenu__link" @click="closeMenu">Вход</NuxtLink>
-            <NuxtLink class="header__reg" @click="closeMenu" to="/reg">Регистрация</NuxtLink>
             <a href="tel:+74951184422" class="fullscreenMenu__link">+7 495 118-44-22</a>
+            <NuxtLink class="header__reg" @click="closeMenu" to="/reg">Регистрация</NuxtLink>
          </div>
       </div>
    </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue';
 
-interface Ref<T> {
-   value: T
-}
+const isMenuActive = ref(false);
 
-interface Methods {
-   toggleMenu: () => void
-   closeMenu: () => void
-   disableScroll: () => void
-   enableScroll: () => void
-}
+const toggleMenu = (): void => {
+   isMenuActive.value = !isMenuActive.value;
+   updateScrollState(isMenuActive.value);
+};
 
-export default defineComponent({
-   setup() {
-      const isMenuActive: Ref<boolean> = ref(false)
+const closeMenu = (): void => {
+   isMenuActive.value = false;
+   updateScrollState(false);
+};
 
-      const toggleMenu = (): void => {
-         isMenuActive.value = !isMenuActive.value
-         if (isMenuActive.value) {
-            disableScroll()
-         } else {
-            enableScroll()
-         }
-      }
-
-      const closeMenu = (): void => {
-         isMenuActive.value = false
-         enableScroll()
-      }
-
-      const disableScroll = (): void => {
-         document.body.classList.add('no-scroll')
-      }
-
-      const enableScroll = (): void => {
-         document.body.classList.remove('no-scroll')
-      }
-
-      return {
-         isMenuActive,
-         toggleMenu,
-         closeMenu
-      }
-   }
-})
+const updateScrollState = (disable: boolean): void => {
+   document.body.classList.toggle('no-scroll', disable);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -200,6 +171,7 @@ export default defineComponent({
    cursor: pointer;
 
    @media (max-width: 1024px) {
+      height: 53px;
       font-size: 24px;
       border-radius: 25px;
       padding: 11px 25px;
@@ -263,6 +235,9 @@ export default defineComponent({
    &__content {
       text-align: center;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      row-gap: 30px;
    }
 
    .fullscreenMenu__link {
@@ -271,7 +246,6 @@ export default defineComponent({
       font-size: 24px;
       color: #fff;
       text-decoration: none;
-      margin: 30px 0;
       transition: color 0.3s ease-in-out;
 
       &:hover {
@@ -297,10 +271,6 @@ export default defineComponent({
       to {
          opacity: 0;
       }
-   }
-
-   .no-scroll {
-      overflow: hidden;
    }
 }
 </style>
